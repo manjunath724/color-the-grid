@@ -1,0 +1,25 @@
+<style type="text/css">
+  table {
+    border-collapse: separate;
+    border-spacing: 1em;
+  }
+</style>
+
+<h1>Colors</h1>
+
+<span style="float: right">
+  <%= link_to 'New Color', new_color_path, class: 'btn btn-sm btn-success' %>
+</span>
+
+<div class="table-responsive">
+  <table class="table">
+    <tr>
+      <% @colors.each_with_index do |color, i| %>
+        <% if i % 30 == 0 %>
+          </tr><tr>
+        <% end %>
+        <td height="20px" width="20px" bgcolor="<%= color.hex %>"></td>
+      <% end %>
+    </tr>
+  </table>
+</div>

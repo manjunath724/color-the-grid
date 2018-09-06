@@ -10,6 +10,21 @@
   </head>
 
   <body>
-    <%= yield %>
+    <div class="container container-main">
+      <div class='container-fluid'>
+        <% if notice %>
+          <div id="success" class="row alert alert-success rounded">
+            <center><%= notice %></center>
+          </div>
+        <% end %>
+        <% if alert %>
+          <div id="error" class="row alert alert-danger rounded">
+            <center><%= alert %></center>
+          </div>
+        <% end %>
+      </div>
+
+      <%= yield %>
+    </div>
   </body>
 </html>
