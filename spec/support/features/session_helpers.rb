@@ -13,13 +13,12 @@ module Features
 
       click_button 'Sign up'
 
-      sign_out_user # Logged out to test the login workflow
-
       [User.find_by_email(email), pass]
     end
 
     def sign_in_with(user, pass)
       visit root_path
+      click_link 'Log In'
 
       fill_in 'Email', with: user.email
       fill_in 'Password', with: pass
@@ -29,11 +28,19 @@ module Features
 
     def visit_the_site
       visit root_path
+      click_link 'Log In'
       click_link 'Continue as a Visitor'
     end
 
     def sign_out_user
       click_link 'Sign out'
+    end
+
+    def add_color_palette
+      click_link 'Add Color'
+
+      find_by_id("color_hex").click
+      click_button "Create Color"
     end
   end
 end

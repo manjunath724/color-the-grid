@@ -1,3 +1,11 @@
 class ApplicationController < ActionController::Base
-  before_action :authenticate_user!
+  before_action :set_user_session
+
+  def set_user_session
+    if signed_in? || devise_controller?
+      session[:current_user] = nil
+    else
+      session[:current_user] = Faker::Internet.username
+    end
+  end
 end
