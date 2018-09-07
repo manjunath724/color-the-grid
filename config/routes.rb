@@ -1,7 +1,10 @@
 Rails.application.routes.draw do
-  root 'colors#index'
+  devise_for :users
 
   resources :colors, only: [:index, :new, :create]
-  devise_for :users
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+  resources :users do
+    post :visitor, on: :collection
+  end
+
+  root 'colors#index'
 end

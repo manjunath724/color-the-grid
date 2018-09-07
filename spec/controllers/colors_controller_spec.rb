@@ -57,7 +57,7 @@ RSpec.describe ColorsController, type: :controller do
         }.to change(Color, :count).by(1)
       end
 
-      it "redirects to the created color" do
+      it "returns a success response" do
         post :create, params: {color: color.attributes}
         expect(response.status).to eq(200)
       end

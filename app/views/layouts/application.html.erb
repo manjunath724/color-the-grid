@@ -7,9 +7,52 @@
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
   </head>
 
   <body>
+    <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #e3f2fd;">
+      <a class="navbar-brand">
+        <i class="fa fa fa-paint-brush"></i>
+        theGrid
+      </a>
+
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+          <%= link_to '<i class="fa fa fa-home"></i> Home'.html_safe, root_path, class: "nav-link" %>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">LeaderBoard</a>
+        </li>
+      </ul>
+
+      <ul class="navbar-nav">
+        <% if signed_in? %>
+          <li class="nav-item">
+            <a class="nav-link"><i class="fa fa fa-user-circle-o"></i> <%= current_user.username %></a>
+          </li>
+          <li class="nav-item">
+            <%= link_to '<i class="fa fa fa-sign-out"></i> Sign out'.html_safe, destroy_user_session_path, method: :delete, class: "nav-link" %>
+          </li>
+        <% else %>
+          <li class="nav-item">
+            <% if controller_name == 'registrations' %>
+              <%= link_to '<i class="fa fa fa-sign-in"></i> Log In'.html_safe, new_user_session_path, class: "nav-link" %>
+            <% else %>
+              <%= link_to '<i class="fa fa fa-user-plus"></i> Sign up'.html_safe, new_user_registration_path, class: "nav-link" %>
+            <% end %>
+          </li>
+          <li class="nav-item">
+            <% if controller_name == 'passwords' %>
+              <%= link_to '<i class="fa fa fa-sign-in"></i> Log In'.html_safe, new_user_session_path, class: "nav-link" %>
+            <% else %>
+              <%= link_to '<i class="fa fa fa-lock"></i> Forgot your password?'.html_safe, new_user_password_path, class: "nav-link" %>
+            <% end %>
+          </li>
+        <% end %>
+      </ul>
+    </nav>
+
     <div class="container container-main">
       <div class='container-fluid'>
         <% if notice %>
@@ -26,5 +69,18 @@
 
       <%= yield %>
     </div>
+
+    <nav class="navbar fixed-bottom navbar-light bg-light">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="nav-link">All Rights Reserved &copy; <%= Date.today.year %> & Powered by</a>
+        </li>
+      </ul>
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <%= link_to '<i class="fa fa fa-github"></i> Manjunath P'.html_safe, "https://github.com/manjunath724", target: '_blank', class: "nav-link" %>
+        </li>
+      </ul>
+    </nav>
   </body>
 </html>
