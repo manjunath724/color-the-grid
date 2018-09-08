@@ -44,7 +44,15 @@ RSpec.configure do |config|
     Capybara::Selenium::Driver.new(app, browser: :chrome)
   end
 
-  Capybara.default_driver = :chrome
+  Capybara.register_driver :firefox do |app|
+    Capybara::Selenium::Driver.new(app, browser: :firefox)
+  end
+
+  Capybara.register_driver :safari do |app|
+    Capybara::Selenium::Driver.new(app, browser: :safari)
+  end
+
+  Capybara.default_driver = :chrome    # Setting the default driver to :chrome or :firefox or :safari should run the specs on that specified browser.
 
   # Below DatabaseCleaner configrations are disabled to not clean up the Grid and Color seed data.
   # config.before(:suite) do

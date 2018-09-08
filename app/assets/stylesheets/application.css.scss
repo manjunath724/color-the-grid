@@ -6,17 +6,12 @@ table {
   border-spacing: 1em;
 }
 
-h1 {
-  text-align: center;
-}
-
-th {
+h1, th, td {
   text-align: center;
 }
 
 td {
   cursor: pointer;
-  text-align: center;
 }
 
 .navbar {

@@ -50,6 +50,7 @@ RSpec.configure do |config|
   # https://relishapp.com/rspec/rspec-rails/docs
   config.infer_spec_type_from_file_location!
 
+  # Adding the configuration to support feature helpers
   config.include Features::SessionHelpers, type: :feature
 
   # Filter lines from Rails gems in backtraces.

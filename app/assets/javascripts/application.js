@@ -18,6 +18,7 @@
 //= require popper
 //= require bootstrap
 
+// A common Ajax function to serve the purpose based on the invocation.
 function invoke_ajax(type, url, data, callback, data_type) {
   $.ajax({
     type: type,
