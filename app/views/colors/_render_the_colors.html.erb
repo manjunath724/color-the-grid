@@ -1,0 +1,10 @@
+<tbody>
+  <tr>
+    <% @colors.each_with_index do |color, i| %>
+      <% if !i.zero? && i % 30 == 0 %>
+        </tr><tr>
+      <% end %>
+      <td height="20px" width="20px" bgcolor="<%= color.hex %>" id="color_<%= color.id %>" class="color"></td>
+    <% end %>
+  </tr>
+</tbody>

@@ -1,0 +1,20 @@
+<tbody>
+  <% @squares.each do |row| %>
+    <tr>
+      <% row.each do |col| %>
+        <% if col.username.nil? %>
+          <td bgcolor="<%= col.color.try(:hex) %>" id="square_<%= col.id %>" class="square" data-url="<%= square_path(col.id) %>" 
+            data-toggle="popover" data-trigger="hover"></td>
+        <% else %>
+          <td bgcolor="<%= col.color.try(:hex) %>" id="square_<%= col.id %>" class="square" data-url="<%= square_path(col.id) %>" 
+            data-toggle="popover" data-trigger="hover" title="Color Placed By: <%= col.username %>" 
+            data-content="Placed at: <%= col.updated_at.strftime("%d/%m/%Y - %I:%M %p") %>"></td>
+        <% end %>
+      <% end %>
+    </tr>
+  <% end %>
+</tbody>
+
+<tfoot>
+  <tr><td colspan="20"><small>Please select the color from palette and draw on the board. Thank you!</small></td></tr>
+</tfoot>

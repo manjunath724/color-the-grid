@@ -27,7 +27,6 @@ module Features
     end
 
     def visit_the_site
-      visit root_path
       click_link 'Log In'
       click_link 'Continue as a Visitor'
     end
@@ -37,10 +36,38 @@ module Features
     end
 
     def add_color_palette
-      click_link 'Add Color'
-
       find_by_id("color_hex").click
-      click_button "Create Color"
+      click_button "Add Color"
+    end
+
+    def pick_a_color
+      color_id = Color.all.sample.id
+      find_by_id("color_#{color_id}").click
+    end
+
+    def draw_on_board
+      square_id = Square.where(color_id: nil).sample.id
+      find_by_id("square_#{square_id}").click
+    end
+
+    def overwrite_visitor_square
+      square_id = Square.where.not(user_id: nil).sample.id
+      find_by_id("square_#{square_id}").click
+    end
+
+    def overwrite_user_square(user_id = nil)
+      square_id = Square.where.not(user_id: [nil, user_id]).sample.id
+      find_by_id("square_#{square_id}").click
+    end
+
+    def overwrite_owned_square(user_id)
+      square_id = Square.where(user_id: user_id).sample.id
+      find_by_id("square_#{square_id}").click
+    end
+
+    def mouse_hover
+      square_id = Square.where.not(color_id: nil).sample.id
+      find_by_id("square_#{square_id}").hover
     end
   end
 end

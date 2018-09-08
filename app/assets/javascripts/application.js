@@ -17,3 +17,18 @@
 //= require jquery3
 //= require popper
 //= require bootstrap
+
+function invoke_ajax(type, url, data, callback, data_type) {
+  $.ajax({
+    type: type,
+    url: url,
+    dataType: data_type || 'json',
+    data: data,
+    success: function(response) {
+      callback(response);
+    },
+    error: function(response) {
+      callback(response);
+    }
+  });
+}

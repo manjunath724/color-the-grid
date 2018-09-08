@@ -1,0 +1,43 @@
+<nav class="navbar navbar-expand-lg navbar-light">
+  <a class="navbar-brand">
+    <i class="fa fa fa-paint-brush"></i>
+    theGrid
+  </a>
+
+  <ul class="navbar-nav mr-auto">
+    <li class="nav-item active">
+      <%= link_to '<i class="fa fa fa-home"></i> Home'.html_safe, root_path, class: "nav-link" %>
+    </li>
+    <li class="nav-item">
+      <%= link_to '<i class="fa fa fa-trophy"></i> LeaderBoard'.html_safe, leaderboard_colors_path, class: "nav-link" %>
+    </li>
+  </ul>
+
+  <ul class="navbar-nav">
+    <% unless devise_controller? %>
+      <li class="nav-item">
+        <a class="nav-link username" id="<%= current_user.try(:id) %>"><i class="fa fa fa-user-circle-o"></i> <%= current_user.username rescue session[:current_user] %></a>
+      </li>
+    <% end %>
+    <% if signed_in? %>
+      <li class="nav-item">
+        <%= link_to '<i class="fa fa fa-sign-out"></i> Sign out'.html_safe, destroy_user_session_path, method: :delete, class: "nav-link" %>
+      </li>
+    <% else %>
+      <li class="nav-item">
+        <% if controller_name == 'registrations' %>
+          <%= link_to '<i class="fa fa fa-sign-in"></i> Log In'.html_safe, new_user_session_path, class: "nav-link" %>
+        <% else %>
+          <%= link_to '<i class="fa fa fa-user-plus"></i> Sign up'.html_safe, new_user_registration_path, class: "nav-link" %>
+        <% end %>
+      </li>
+      <li class="nav-item">
+        <% if ['passwords', 'colors'].include? controller_name %>
+          <%= link_to '<i class="fa fa fa-sign-in"></i> Log In'.html_safe, new_user_session_path, class: "nav-link" %>
+        <% else %>
+          <%= link_to '<i class="fa fa fa-lock"></i> Forgot your password?'.html_safe, new_user_password_path, class: "nav-link" %>
+        <% end %>
+      </li>
+    <% end %>
+  </ul>
+</nav>

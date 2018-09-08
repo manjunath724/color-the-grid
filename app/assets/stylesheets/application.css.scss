@@ -1,2 +1,29 @@
 // Custom bootstrap variables must be set or imported *before* bootstrap.
 @import "bootstrap";
+
+table {
+  border-collapse: separate;
+  border-spacing: 1em;
+}
+
+h1 {
+  text-align: center;
+}
+
+th {
+  text-align: center;
+}
+
+td {
+  cursor: pointer;
+  text-align: center;
+}
+
+.navbar {
+  background-color: #e3f2fd;
+}
+
+li#selected-color {
+  display: inline;
+  margin-left: 5px;
+}

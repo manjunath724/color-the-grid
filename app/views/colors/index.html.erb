@@ -1,25 +1,97 @@
-<style type="text/css">
-  table {
-    border-collapse: separate;
-    border-spacing: 1em;
-  }
-</style>
+<hr>
 
-<h1>Colors</h1>
+<h1>Color Palette</h1>
 
-<span style="float: right">
-  <%= link_to 'Add Color', new_color_path, class: 'btn btn-sm btn-success' %>
-</span>
+<hr>
+
+<div class="col-sm-12">
+  <span class="col-sm-6">
+    <button class="btn btn-sm btn-light" id="clear-selection">Clear Selection</button>
+    <li id="selected-color" class="col-sm-2"></li>
+  </span>
+  <span style="float: right">
+    <%= render 'form' %>
+  </span>
+</div>
 
 <div class="table-responsive">
-  <table class="table">
-    <tr>
-      <% @colors.each_with_index do |color, i| %>
-        <% if i % 30 == 0 %>
-          </tr><tr>
-        <% end %>
-        <td height="20px" width="20px" bgcolor="<%= color.hex %>"></td>
-      <% end %>
-    </tr>
+  <table class="table" id="colors">
   </table>
 </div>
+
+<hr>
+
+<h1>Board</h1>
+
+<hr>
+
+<div class="table-responsive table-bordered">
+  <table class="table" id="squares">
+  </table>
+</div>
+
+<hr>
+
+<script type="text/javascript">
+  var color_id = null;
+  var squares_url = "<%= squares_path %>";
+  var user_id = $('.username').attr('id');
+  var username = $('.username').text().trim();
+  var colors_url = "<%= render_the_palette_colors_path %>";
+
+  function render_the_palette() {
+    invoke_ajax('GET', colors_url, {}, function(response) {
+      $('#colors').html(response);
+    }, 'html');
+  }
+
+  function render_the_grid() {
+    invoke_ajax('GET', squares_url, {}, function(response) {
+      $('#squares').html(response);
+      $('[data-toggle="popover"]').popover();
+    }, 'html');
+  }
+
+  render_the_palette();
+  render_the_grid();
+
+  $('#colors').on('click', '.color', function() {
+    color_id = $(this).attr('id').split('_').pop();
+    $('li#selected-color').css('background-color', $(this).attr('bgcolor'));
+  });
+
+  $('#squares').on('click', '.square', function() {
+    if(color_id == null) {
+      var content = "<div id='error' class='row alert alert-danger rounded alert-dismissible'><button type='button' \
+        class='close' data-dismiss='alert'>&times;</button>Please select a color from the palette to draw</div>"
+      $('div.container-fluid').html(content);
+    } else {
+      var td = $(this)
+      var id = td.attr('id').split('_').pop();
+      var color_square_url = td.attr('data-url');
+      var param = { id: id, color_id: color_id, user_id: user_id, username: username };
+
+      invoke_ajax('PUT', color_square_url, param, function(response) {
+        if(response.errors) {
+          var content = "<div id='error' class='row alert alert-danger rounded alert-dismissible'> \
+            <button type='button' class='close' data-dismiss='alert'>&times;</button>"+ response.errors +"</div>"
+          $('div.container-fluid').html(content);
+        } else {
+          td.css('background-color', response.color);
+          td.attr('data-original-title', "Color Placed By: "+ username);
+          td.attr('data-content', "Placed at: "+ response.updated_at);
+        }
+      });
+    }
+  });
+
+  $('#clear-selection').on('click', function() {
+    color_id = null;
+    $('li#selected-color').css('background-color', '');
+  });
+
+  setInterval(function() {
+    render_the_palette();
+    render_the_grid();
+  }, Math.floor(Math.random() * 200000) + 15000); // intermittent refresh between the range 15 - 200 seconds
+</script>

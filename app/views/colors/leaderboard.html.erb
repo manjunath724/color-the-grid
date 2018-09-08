@@ -1,0 +1,31 @@
+<hr>
+<h1>LeaderBoard</h1>
+
+<div class="table-responsive table-bordered">
+  <table class="table">
+    <thead class="thead-light">
+      <tr>
+        <th><i class="fa fa fa-user"></i> User</th>
+        <th>No. of Squares Colored <i class="fa fa fa-th-large"></i></th>
+        <th>Favorite Colors <i class="fa fa fa-sort-amount-desc"></i></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @user_squares.each do |user, (squares, colors)| %>
+        <tr>
+          <td><%= user %></td>
+          <td><%= squares %></td>
+          <td>
+            <% colors.each do |k, v| %>
+              <li style="background-color: <%= k %>;"><%= v %></li>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+      <% if @user_squares.blank? %>
+        <tr><td colspan="3"><center>No participants found</center></td></tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

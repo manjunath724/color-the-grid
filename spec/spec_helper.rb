@@ -46,18 +46,19 @@ RSpec.configure do |config|
 
   Capybara.default_driver = :chrome
 
-  config.before(:suite) do
-    DatabaseCleaner.clean_with :truncation
-  end
+  # Below DatabaseCleaner configrations are disabled to not clean up the Grid and Color seed data.
+  # config.before(:suite) do
+  #   DatabaseCleaner.clean_with :truncation
+  # end
 
-  config.before(:each) do
-    DatabaseCleaner.strategy = :transaction
-    DatabaseCleaner.start
-  end
+  # config.before(:each) do
+  #   DatabaseCleaner.strategy = :transaction
+  #   DatabaseCleaner.start
+  # end
 
-  config.after(:each) do
-    DatabaseCleaner.clean
-  end
+  # config.after(:each) do
+  #   DatabaseCleaner.clean
+  # end
 
   # This option will default to `:apply_to_host_groups` in RSpec 4 (and will
   # have no way to turn it off -- the option exists only for backwards

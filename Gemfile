@@ -48,8 +48,6 @@ group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   # Use RspecRails for test specifications
   gem 'rspec-rails'
-  # Use FactoryGirlRails for build support
-  gem 'factory_girl_rails'
   # Use Faker to generate test data
   gem 'faker'
   # Adds support for Capybara system testing and selenium driver
