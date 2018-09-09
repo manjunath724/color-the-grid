@@ -52,6 +52,7 @@ RSpec.configure do |config|
 
   # Adding the configuration to support feature helpers
   config.include Features::SessionHelpers, type: :feature
+  config.include Features::GridHelpers, type: :feature
 
   # Filter lines from Rails gems in backtraces.
   config.filter_rails_from_backtrace!

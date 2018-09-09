@@ -16,7 +16,7 @@
   <ul class="navbar-nav">
     <% unless devise_controller? %>
       <li class="nav-item">
-        <a class="nav-link username" id="<%= current_user.try(:id) %>"><i class="fa fa fa-user-circle-o"></i> <%= current_user.username rescue session[:current_user] %></a>
+        <a class="nav-link username" id="<%= current_user.try(:id) %>"><i class="fa fa fa-user-circle-o"></i> <%= current_user.try(:username) || session[:current_user] %></a>
       </li>
     <% end %>
     <% if signed_in? %>
