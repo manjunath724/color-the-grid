@@ -51,6 +51,7 @@ gem 'database_cleaner', '1.7.0'  # Used for truncating/cleaning the test data be
 - Default browser to run Rspec tests can be registered/changed in _spec/spec_helper.rb_.
   - Currently _chrome_, _firefox_ and _safari_ are registered, but **safari** is not been tested out.
   - **Chrome** is set as default browser.
+    - Recommend running the Rspec on chrome browser as color popup window components may change based on the browser.
 - `DatabaseCleaner` configurations in _spec/spec_helper.rb_ has been commmented out to restrict it from cleaning up the seeded data.
 - Intermittent refresh numbers can be changed according to the requirement.
 
@@ -106,10 +107,10 @@ rails server
   
   3. Execute `Rspec` using the below command
   ```
-    rspec spec/features/colors_spec.rb
+    rspec spec/
   ```
   4. For formatted output like documentation type
   ```
-    rspec spec/features/colors_spec.rb --format documentation
+    rspec spec/ --format documentation
   ```
 <hr>
